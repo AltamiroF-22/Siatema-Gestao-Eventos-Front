@@ -18,7 +18,7 @@ export const useCreateUser = defineStore("create-user-modal", () => {
   // Ação para fechar o modal
   const closeModal = () => {
     isModalOpen.value = false;
-    textInput.value = { name: "", email: "", password: "" }; // Limpar os campos
+    // textInput.value = { name: "", email: "", password: "" }; // Limpar os campos
   };
 
   // Ação para criar o usuário via API

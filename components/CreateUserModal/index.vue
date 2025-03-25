@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useCreateUser } from "@/stores/CreateUserModal.ts";
+import { useCreateUser } from "@/stores/CreateUserModal";
 
 // Store
 const createUserStore = useCreateUser();
