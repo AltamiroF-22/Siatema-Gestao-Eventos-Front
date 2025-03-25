@@ -1,3 +1,4 @@
 <template>
   <CreateUserModal />
+  <LoginModal/>
 </template>

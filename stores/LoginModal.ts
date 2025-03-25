@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
 
+import type { AuthResponse } from "@/interfaces/UserAuth";
+
 export const useLoginModal = defineStore(
   "auth",
   () => {
@@ -12,6 +14,7 @@ export const useLoginModal = defineStore(
     });
 
     const token = ref<string | null>(null);
+    const userId = ref<string | number | null>(null);
 
     const openModal = () => {
       isModalOpen.value = true;
@@ -21,26 +24,49 @@ export const useLoginModal = defineStore(
       isModalOpen.value = false;
     };
 
-    const login = async () => {
+    const login = async (): Promise<AuthResponse | null> => {
+      const nuxtApp = useNuxtApp(); // Usando useNuxtApp corretamente
+      const { $toast } = nuxtApp; // Pegando o $toast
+
       try {
-        const response = await axios.post("http://127.0.0.1:8000/api/login", {
-          email: textInput.value.email,
-          password: textInput.value.password,
-        });
+        const response = await axios.post<AuthResponse>(
+          "http://127.0.0.1:8000/api/login",
+          {
+            email: textInput.value.email,
+            password: textInput.value.password,
+          }
+        );
 
         token.value = response.data.token;
+        userId.value = response.data.user.id;
 
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${token.value}`;
+
+        closeModal();
+        $toast.success(response.data.message, { position: "top-right" });
+        return response.data;
       } catch (error) {
         console.error("Erro ao logar usuário:", error);
+        return null;
       }
     };
 
-    const logout = () => {
-      token.value = null;
-      delete axios.defaults.headers.common["Authorization"];
+    const logout = async () => {
+      const nuxtApp = useNuxtApp(); // Usando useNuxtApp corretamente
+      const { $toast } = nuxtApp; // Pegando o $toast
+
+      try {
+        const response = await axios.post(
+          `http://127.0.0.1:8000/api/logout/${userId.value}`
+        );
+        delete axios.defaults.headers.common["Authorization"];
+        token.value = null;
+        $toast.success(response.data.message, { position: "top-right" });
+      } catch (error) {
+        console.error("Erro ao logar usuário:", error);
+      }
     };
 
     return {
