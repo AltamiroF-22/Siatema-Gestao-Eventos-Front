@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   css: [
     "~/assets/css/tailwind.css", // Arquivo Tailwind específico
     "vuetify/styles", // Importa os estilos do Vuetify
+    '@mdi/font/css/materialdesignicons.css', // Importa os ícones do Material Design
   ],
   modules: [
     "@pinia/nuxt",

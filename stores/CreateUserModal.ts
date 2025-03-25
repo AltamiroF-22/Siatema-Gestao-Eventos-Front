@@ -28,6 +28,9 @@ export const useCreateUser = defineStore("create-user-modal", () => {
         name: textInput.value.name,
         email: textInput.value.email,
         password: textInput.value.password,
+
+        //TODO toaste da msg do back se o email ja esta cadastrado
+        
       });
       console.log("Usuário criado:", response.data);
       closeModal(); // Fechar o modal após sucesso

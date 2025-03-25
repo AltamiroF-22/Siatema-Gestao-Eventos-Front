@@ -3,12 +3,20 @@ import "vuetify/styles"; // Certifique-se de importar os estilos do Vuetify
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
     components,
     directives,
     ssr: true,
+    icons: {
+      defaultSet: "mdi", // Define o conjunto de ícones padrão
+      aliases,
+      sets: {
+        mdi,
+      },
+    },
     theme: {
       defaultTheme: "light", // Define o tema padrão como 'light'
       themes: {

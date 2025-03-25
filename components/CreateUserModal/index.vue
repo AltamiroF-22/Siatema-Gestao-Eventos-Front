@@ -1,6 +1,4 @@
 <template>
-  <v-btn @click="createUserStore.openModal">Abrir Modal</v-btn>
-
   <v-dialog v-model="createUserStore.isModalOpen" max-width="500px">
     <v-card>
       <v-card-title>Criar Usuário</v-card-title>

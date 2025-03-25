@@ -1,7 +1,4 @@
 <template>
-  <v-btn v-if="!loginModal.token" @click="loginModal.openModal">Login</v-btn>
-  <v-btn v-if="loginModal.token" @click="loginModal.logout">Logout</v-btn>
-
   <v-dialog v-model="loginModal.isModalOpen" max-width="500px">
     <v-card>
       <v-card-title>Login</v-card-title>
@@ -21,7 +18,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn :disabled="!isFormValid" @click="validateAndSubmit">Criar</v-btn>
+        <v-btn :disabled="!isFormValid" @click="validateAndSubmit">logar</v-btn>
         <v-btn @click="loginModal.closeModal">Fechar</v-btn>
       </v-card-actions>
     </v-card>
