@@ -47,9 +47,7 @@
 
     <!-- Conteúdo da página -->
     <v-main>
-      <v-container>
-        <slot></slot>
-      </v-container>
+      <slot></slot>
     </v-main>
 
     <!-- Rodapé -->
@@ -57,7 +55,10 @@
       <v-spacer></v-spacer>
       <v-row>
         <v-col cols="12" sm="6" class="text-center">
-          <span>&copy; 2025 Sistema de Gestão de Eventos - Todos os direitos reservados</span>
+          <span
+            >&copy; 2025 Sistema de Gestão de Eventos - Todos os direitos
+            reservados</span
+          >
         </v-col>
       </v-row>
     </v-footer>
@@ -82,7 +83,6 @@ const goToPage = (page: string) => {
 };
 
 const drawer = ref(false);
-
 </script>
 
 <style scoped>
