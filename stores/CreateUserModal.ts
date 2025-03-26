@@ -12,7 +12,7 @@ export const useCreateUser = defineStore("create-user-modal", () => {
 
   // Ação para abrir o modal
   const openModal = () => {
-      isModalOpen.value = true;
+    isModalOpen.value = true;
   };
 
   // Ação para fechar o modal
@@ -23,19 +23,46 @@ export const useCreateUser = defineStore("create-user-modal", () => {
 
   // Ação para criar o usuário via API
   const createUser = async () => {
-    try {
-      const response = await axios.post("http://127.0.0.1:8000/api/create-user", {
-        name: textInput.value.name,
-        email: textInput.value.email,
-        password: textInput.value.password,
+    const nuxtApp = useNuxtApp(); // Usando useNuxtApp corretamente
+    const { $toast } = nuxtApp; // Pegando o $toast
 
-        //TODO toaste da msg do back se o email ja esta cadastrado
-        
-      });
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/create-user",
+        {
+          name: textInput.value.name,
+          email: textInput.value.email,
+          password: textInput.value.password,
+        }
+      );
+
       console.log("Usuário criado:", response.data);
       closeModal(); // Fechar o modal após sucesso
-    } catch (error) {
+      $toast.success(response.data.message, { position: "top-right" });
+    } catch (error: any) {
       console.error("Erro ao criar usuário:", error);
+
+      // Verifica se a resposta da API contém mensagens de erro
+      if (error.response && error.response.data) {
+        const apiErrors = error.response.data.errors;
+
+        // Exibe cada mensagem de erro no toast
+        if (apiErrors) {
+          Object.keys(apiErrors).forEach((field) => {
+            apiErrors[field].forEach((message: string) => {
+              $toast.error(message, { position: "top-right" });
+            });
+          });
+        } else {
+          // Caso haja um erro geral sem `errors`
+          $toast.error(error.response.data.message, { position: "top-right" });
+        }
+      } else {
+        // Erro inesperado (ex: erro de rede)
+        $toast.error("Erro ao conectar com o servidor.", {
+          position: "top-right",
+        });
+      }
     }
   };
 
