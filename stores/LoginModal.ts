@@ -59,14 +59,18 @@ export const useLoginModal = defineStore(
 
       try {
         const response = await axios.post(
-          `http://127.0.0.1:8000/api/logout/${userId.value}`
+          `http://127.0.0.1:8000/api/logout/${userId.value}`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${token.value}` },
+          }
         );
         delete axios.defaults.headers.common["Authorization"];
         token.value = null;
         userId.value = null;
         $toast.success(response.data.message, { position: "top-right" });
       } catch (error) {
-        console.error("Erro ao logar usuário:", error);
+        console.error("Erro ao deslogar usuário:", error);
       }
     };
 
