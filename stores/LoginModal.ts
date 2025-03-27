@@ -63,6 +63,7 @@ export const useLoginModal = defineStore(
         );
         delete axios.defaults.headers.common["Authorization"];
         token.value = null;
+        userId.value = null;
         $toast.success(response.data.message, { position: "top-right" });
       } catch (error) {
         console.error("Erro ao logar usuário:", error);
@@ -77,6 +78,7 @@ export const useLoginModal = defineStore(
       login,
       logout,
       token,
+      userId,
     };
   },
   {

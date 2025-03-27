@@ -21,7 +21,7 @@
             :src="event.main_image"
             alt="Imagem do evento"
             height="300px"
-            class="object-cover h-full group-hover:scale-110 transition aspect-square bg-contain w-full relative overflow-hidden rounded-xl"
+            class="object-cover h-full group-hover:scale-110 transition aspect-square bg-cover w-full relative overflow-hidden rounded-xl"
           ></v-img>
 
           <!-- Título do evento -->
@@ -63,6 +63,7 @@
 
   <CreateUserModal />
   <LoginModal />
+  <CreateEventModal />
 </template>
 
 <script setup lang="ts">
@@ -77,7 +78,7 @@ onMounted(() => {
 });
 
 // Função para inscrever-se no evento (exemplo)
-const subscribeToEvent = (eventId: number) => {
+const subscribeToEvent = (eventId: any) => {
   console.log("Inscrevendo-se no evento", eventId);
 };
 

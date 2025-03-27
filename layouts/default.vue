@@ -21,19 +21,24 @@
     <!-- Drawer (Menu lateral) -->
     <v-navigation-drawer v-model="drawer" app temporary>
       <v-list>
-        <v-list-item @click="goToPage('home')">
+        <v-list-item @click="goToPage('/')">
           <v-list-item-content>
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="goToPage('profile')">
+        <v-list-item @click="createEventModal.openModal">
           <v-list-item-content>
-            <v-list-item-title>Profile</v-list-item-title>
+            <v-list-item-title>Criar evento</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item @click="goToPage('settings')">
+        <v-list-item @click="goToPage('minhas-inscricoes')">
           <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
+            <v-list-item-title>Minhas inscrições</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="goToPage('meus-eventos')">
+          <v-list-item-content>
+            <v-list-item-title>Meu eventos</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -51,7 +56,7 @@
     </v-main>
 
     <!-- Rodapé -->
-    <v-footer app>
+    <v-footer>
       <v-spacer></v-spacer>
       <v-row>
         <v-col cols="12" sm="6" class="text-center">
@@ -71,10 +76,12 @@ import { useRouter } from "vue-router";
 
 import { useLoginModal } from "@/stores/LoginModal";
 import { useCreateUser } from "@/stores/CreateUserModal";
+import { useCreateEventModal } from "@/stores/CreateEventModal";
 
 // Store
 const createUserStore = useCreateUser();
 const loginModal = useLoginModal();
+const createEventModal = useCreateEventModal();
 
 // Função para navegar entre páginas
 const router = useRouter();
