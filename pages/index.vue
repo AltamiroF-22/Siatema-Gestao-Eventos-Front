@@ -8,20 +8,25 @@
 
   <v-container>
     <!-- Cards dos eventos -->
-    <v-row
-      class="my-6 pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-40"
-    >
-      <v-col v-for="event in eventsStore.Events" :key="event.id">
+    <v-row class="my-6 pt-24 mb-40 gap-4 flex items-center justify-center" dense>
+      <v-col
+        v-for="event in eventsStore.Events"
+        :key="event.id"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+      >
         <v-card
-          class="event-card rounded-md shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer"
+          class="event-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out cursor-pointer"
         >
           <!-- Imagem principal do evento -->
-
           <v-img
             :src="event.main_image"
             alt="Imagem do evento"
             height="300px"
-            class="object-cover h-full group-hover:scale-110 transition aspect-square bg-cover w-full relative overflow-hidden rounded-xl"
+            class="w-full"
+            cover
           ></v-img>
 
           <!-- Título do evento -->

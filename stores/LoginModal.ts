@@ -47,8 +47,11 @@ export const useLoginModal = defineStore(
         closeModal();
         $toast.success(response.data.message, { position: "top-right" });
         return response.data;
-      } catch (error) {
+      } catch (error: any) {
         console.error("Erro ao logar usuário:", error);
+        if (error.response && error.response.data) {
+          $toast.error(error.response.data.message, { position: "top-right" });
+        }
         return null;
       }
     };
