@@ -20,7 +20,7 @@
     <v-row v-else>
       <v-col v-for="event in myEvents" :key="event.id" cols="12" md="6" lg="4">
         <v-card>
-          <v-img :src="event.main_image" height="400px" cover></v-img>
+          <v-img :src="event.main_image || ''" height="400px" cover></v-img>
 
           <v-card-title>{{ event.title }}</v-card-title>
 
@@ -37,7 +37,7 @@
             <v-btn
               color="primary"
               :disabled="loading"
-              @click="editEvent(event)"
+              @click="editEvent.openModal(event)"
             >
               <v-icon left>mdi-pencil</v-icon> Editar
             </v-btn>
@@ -66,6 +66,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useEditMyEvent } from "@/stores/EditMyEvents";
 import { ref, onMounted } from "vue";
 import { getMyEvents } from "~/actions/myEvents/getMyEvents";
 import { deleteMyEvent } from "~/actions/myEvents/deleteMyEvents";
@@ -75,6 +76,9 @@ const myEvents = ref<Event[]>([]);
 const page = ref<number>(1);
 const totalPages = ref<number>(1);
 const loading = ref<boolean>(false);
+
+// Store
+const editEvent = useEditMyEvent();
 
 const handlePageChange = async () => {
   loading.value = true;
@@ -90,11 +94,6 @@ const handleDeleEvente = async (id: string | number | undefined) => {
     await deleteMyEvent(id);
     myEvents.value = myEvents.value.filter((event) => event.id !== id);
   } catch (e) {}
-};
-
-const editEvent = (event: Event) => {
-  console.log("Editando evento:", event);
-  // Aqui você pode redirecionar para uma página de edição ou abrir um modal
 };
 
 onMounted(() => {

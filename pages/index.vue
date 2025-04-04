@@ -8,7 +8,10 @@
 
   <v-container>
     <!-- Cards dos eventos -->
-    <v-row class="my-6 pt-24 mb-40 gap-4 flex items-center justify-center" dense>
+    <v-row
+      class="my-6 pt-24 mb-40 gap-4 flex items-center justify-center"
+      dense
+    >
       <v-col
         v-for="event in eventsStore.Events"
         :key="event.id"
@@ -22,7 +25,7 @@
         >
           <!-- Imagem principal do evento -->
           <v-img
-            :src="event.main_image"
+            :src="event.main_image || ''"
             alt="Imagem do evento"
             height="300px"
             class="w-full"
@@ -65,10 +68,6 @@
       :model-value="eventsStore.EventPage"
     ></v-pagination>
   </v-container>
-
-  <CreateUserModal />
-  <LoginModal />
-  <CreateEventModal />
 </template>
 
 <script setup lang="ts">
